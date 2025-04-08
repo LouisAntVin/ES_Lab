@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head><title>Inventory</title></head>
+<body>
+<h1>Inventory</h1>
+
+<!-- Add -->
+<form method="POST">
+    <input type="hidden" name="action" value="add">
+    ID <input name="id"> Name <input name="name"> Cat <input name="cat">
+    Price <input name="price"> Stock <input name="stock">
+    <button>Add</button>
+</form>
+
+<!-- Delete -->
+<form method="POST">
+    <input type="hidden" name="action" value="delete">
+    ID <input name="id">
+    <button>Delete</button>
+</form>
+
+<!-- Update -->
+<form method="POST">
+    <input type="hidden" name="action" value="update">
+    ID <input name="id">
+    Field <select name="field">
+        <option value="Price">Price</option>
+        <option value="Stock">Stock</option>
+    </select>
+    New Value <input name="val">
+    <button>Update</button>
+</form>
+
+<!-- Restock -->
+<form method="POST">
+    <input type="hidden" name="action" value="restock">
+    Threshold <input name="threshold">
+    <button>Check</button>
+</form>
+
+<!-- Table -->
+<table border="1">
+    <tr><th>ID</th><th>Name</th><th>Cat</th><th>Price</th><th>Stock</th><th>Sales</th></tr>
+    {% for item in inv %}
+    <tr>
+        <td>{{ item.ID }}</td><td>{{ item.Name }}</td><td>{{ item.Category }}</td>
+        <td>{{ item.Price }}</td><td>{{ item.Stock }}</td><td>{{ item.Sales }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<!-- Low Stock -->
+{% if low %}
+<h2>Low Stock</h2>
+<ul>
+    {% for i in low %}
+    <li>{{ i.Name }} ({{ i.Stock }})</li>
+    {% endfor %}
+</ul>
+{% endif %}
+</body>
+</html>
